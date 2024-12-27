@@ -27,25 +27,37 @@ impl Person {
     }
 }
 
+trait Area {
+    fn area(&self) -> u32;
+}
+
+trait Factory {
+    fn new(width: u32, height: u32) -> Self;
+}
+
 struct Retangulo {
     width: u32,
     height: u32
 }
 
-impl Retangulo {
+impl Area for Retangulo {
     fn area(&self) -> u32 {
         self.width * self.height
     }
+}
 
-    fn is_square(&self) -> bool {
-        self.width == self.height
-    }
-
-    fn new(width: u32, height: u32) -> Retangulo {
+impl Factory for Retangulo {
+    fn new(width: u32, height: u32) -> Self {
         Retangulo {
             width,
             height
         }
+    }
+}
+
+impl Retangulo {
+    fn is_square(&self) -> bool {
+        self.width == self.height
     }
 }
 
