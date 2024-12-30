@@ -1,39 +1,31 @@
+use std::io::Read;
+use std::fs::File;
+
 
 
 fn main() {
 
-    let resultado = std::panic::catch_unwind(|| {
-        let values =function_with_panic(32);
+    let file = read_file("src/main2.rs");
 
-        Ok::<i32,&str>(values)
-    });
-
-    match resultado {
-        Ok(valor ) => println!("Tudo certo {}", valor.unwrap()),
-        Err(_) => println!("Deu ruim")   
-    }
-
-    let result_div = divide(10, 2);
-
-    match result_div {
-        Ok(value) => println!("Resultado: {}", value),
-        Err(err) => println!("Erro: {}", err)
+    match file {
+        Ok(contents) => {
+            println!("File contents: {}", contents);
+        },
+        Err(e) => {
+            println!("Error reading file: {}", e);
+        }
     }
    
 }
 
-fn function_with_panic(valor: i32) -> i32 {
-    if valor == 0 { 
-        panic!("Valor não pode ser negativo");
-    }
+fn read_file(path : &str) -> Result<String, std::io::Error> {
+    let mut file = File::open(path)?;
 
-    valor
+    let mut contents = String::new();
+
+    file.read_to_string( &mut contents)?;
+
+    Ok(contents)
 }
 
-fn divide(a: i32, b: i32) -> Result<i32, String> {
-    if b == 0 {
-        return Err("Divisão por zero".to_string());
-    }
 
-    Ok(a / b)
-}
