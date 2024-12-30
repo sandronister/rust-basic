@@ -9,7 +9,7 @@ fn main() {
     });
 
     match resultado {
-        Ok(_) => println!("Tudo certo"),
+        Ok(valor ) => println!("Tudo certo {}", valor.unwrap()),
         Err(_) => println!("Deu ruim")   
     }
 
