@@ -5,7 +5,7 @@ use std::fs::File;
 
 fn main() {
 
-    let file = read_file("src/main2.rs");
+    let file = read_file("sample.txt");
 
     match file {
         Ok(contents) => {
