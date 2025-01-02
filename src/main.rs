@@ -2,8 +2,6 @@
 
 fn main() {
 
- 
-
     let result = divide(10 as f64, 0 as f64);
 
     match result {
