@@ -2,38 +2,23 @@
 
 fn main() {
 
-    let resultado = std::panic::catch_unwind(|| {
-        let values =function_with_panic(32);
+ 
 
-        Ok::<i32,&str>(values)
-    });
+    let result = divide(10 as f64, 0 as f64);
 
-    match resultado {
-        Ok(valor ) => println!("Tudo certo {}", valor.unwrap()),
-        Err(_) => println!("Deu ruim")   
-    }
-
-    let result_div = divide(10, 2);
-
-    match result_div {
-        Ok(value) => println!("Resultado: {}", value),
-        Err(err) => println!("Erro: {}", err)
+    match result {
+        Some(value) => println!("Result: {}", value),
+        None => println!("Cannot divide by zero")
     }
    
 }
 
-fn function_with_panic(valor: i32) -> i32 {
-    if valor == 0 { 
-        panic!("Valor não pode ser negativo");
+
+fn divide(a: f64, b: f64) -> Option<f64> {
+    if b == 0.0 {
+        return None
     }
 
-    valor
+    Some(a / b)
 }
 
-fn divide(a: i32, b: i32) -> Result<i32, String> {
-    if b == 0 {
-        return Err("Divisão por zero".to_string());
-    }
-
-    Ok(a / b)
-}
